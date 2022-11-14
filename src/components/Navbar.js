@@ -7,7 +7,6 @@ import {
   Container,
   Toolbar,
   Box,
-  Button,
   IconButton,
   Typography,
 } from "@mui/material";
@@ -36,7 +35,7 @@ function Navbar() {
               component="a"
               href="/"
               sx={{
-                mr: 2,
+                mr: 10,
                 display: { xs: "none", md: "flex" },
                 fontSize: "30px",
                 fontFamily: "monospace",
@@ -49,12 +48,16 @@ function Navbar() {
               AUDIOPIUM
             </Typography>
             <IconButton
+              onClick={console.log('implement wishlist action')}
               color="inherit"
+              href="/wishlist"
             >
               <ListAltIcon sx={{ fontSize: "40px" }} />
             </IconButton>
             <IconButton
+              onClick={console.log('implement profile action')}
               color="inherit"
+              href="/profile"
             >
               <AccountCircleIcon sx={{ fontSize: "40px" }} />
             </IconButton>
