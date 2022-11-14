@@ -1,7 +1,8 @@
-import React from "react";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import AlbumIcon from "@mui/icons-material/Album";
-import ListAltIcon from "@mui/icons-material/ListAlt";
+import React from "react"
+import AccountCircleIcon from "@mui/icons-material/AccountCircle"
+import AlbumIcon from "@mui/icons-material/Album"
+import ListAltIcon from "@mui/icons-material/ListAlt"
+import SearchIcon from '@mui/icons-material/Search'
 import {
   AppBar,
   Container,
@@ -9,7 +10,8 @@ import {
   Box,
   IconButton,
   Typography,
-} from "@mui/material";
+  TextField,
+} from "@mui/material"
 
 function Navbar() {
   return (
@@ -49,7 +51,14 @@ function Navbar() {
             >
               AUDIOPIUM
             </Typography>
-            
+            <Box
+              sx={{mr: 2}}
+            >
+              <SearchIcon />
+              <TextField label={ <SearchIcon /> && "Search"} variant="outlined">
+                IMPLEMENT ME!!!!!!!!!!!!!!!!
+              </TextField>
+            </Box>
             <IconButton
               sx={{mr: 1}}
               onClick={console.log('implement wishlist action')}
@@ -73,4 +82,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default Navbar
