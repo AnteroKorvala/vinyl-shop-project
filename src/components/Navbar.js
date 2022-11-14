@@ -13,7 +13,7 @@ import {
 
 function Navbar() {
   return (
-    <Box>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="primary" maxWidth="100vw">
         <Container maxWidth="x1">
           <Toolbar disableGutters>
@@ -24,6 +24,7 @@ function Navbar() {
               edge="start"
               sx={{
                 display: { xs: "none", md: "flex" },
+                ml: 2,
                 mr: 1,
               }}
             >
@@ -35,7 +36,8 @@ function Navbar() {
               component="a"
               href="/"
               sx={{
-                mr: 10,
+                flexGrow: 1,
+                //mr: 10,
                 display: { xs: "none", md: "flex" },
                 fontSize: "30px",
                 fontFamily: "monospace",
@@ -47,7 +49,9 @@ function Navbar() {
             >
               AUDIOPIUM
             </Typography>
+            
             <IconButton
+              sx={{mr: 1}}
               onClick={console.log('implement wishlist action')}
               color="inherit"
               href="/wishlist"
@@ -55,6 +59,7 @@ function Navbar() {
               <ListAltIcon sx={{ fontSize: "40px" }} />
             </IconButton>
             <IconButton
+              sx={{mr: 2}}
               onClick={console.log('implement profile action')}
               color="inherit"
               href="/profile"
