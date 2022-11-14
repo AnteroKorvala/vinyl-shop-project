@@ -1,10 +1,13 @@
 import './App.css'
+import Navbar from './components/Navbar'
+import { ThemeProvider } from '@mui/system'
+import theme from './components/Theme'
 
 function App() {
   return (
-    <div className="App">
-      Moro
-    </div>
+    <ThemeProvider theme={theme}>
+      <Navbar />
+    </ThemeProvider>
   )
 }
 
