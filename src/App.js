@@ -1,11 +1,16 @@
-import './App.css';
+import './App.css'
+import Navbar from './components/Navbar'
+import { ThemeProvider } from '@mui/system'
+import theme from './components/Theme'
+import Vinyl from './components/Vinyl'
 
 function App() {
   return (
-    <div className="App">
-      Moro
-    </div>
-  );
+    <ThemeProvider theme={theme}>
+      <Navbar />
+      <Vinyl />
+    </ThemeProvider>
+  )
 }
 
-export default App;
+export default App
