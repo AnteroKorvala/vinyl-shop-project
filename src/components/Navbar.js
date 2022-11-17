@@ -11,6 +11,7 @@ import {
   IconButton,
   Typography,
   TextField,
+  InputAdornment
 } from "@mui/material"
 
 function Navbar() {
@@ -54,8 +55,17 @@ function Navbar() {
             <Box
               sx={{mr: 2}}
             >
-              <SearchIcon />
-              <TextField label={ <SearchIcon /> && "Search"} variant="outlined">
+              <TextField
+                id="search-input"
+                label="Search..."
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  )
+                }}
+              >
                 IMPLEMENT ME!!!!!!!!!!!!!!!!
               </TextField>
             </Box>
