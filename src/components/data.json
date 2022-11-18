@@ -1,0 +1,46 @@
+{
+    "records": [
+            {
+                "id": 1,
+                "name": "Below the Heavens",
+                "artist": "Blu",
+                "producer": "Exile",
+                "label": "Sound in Color",
+                "length": "65:11",
+                "genre": [
+                    "Hip Hop",
+                    "Rap",
+                    "Conscious Rap",
+                    "West Coast"
+                ],
+                "released": "July 17 2007"
+            },
+            {
+                "id": 2,
+                "name": "Number of the Beast",
+                "artist": "Iron Maiden",
+                "producer": "Martin Birch",
+                "label": "EMI",
+                "length": "39:11",
+                "genre": [
+                    "Heavy Metal"
+                ],
+                "released": "22 March 1982"
+            },
+            {
+                "id": 3,
+                "name": "Antichrist Superstar",
+                "artist": "Marilyn Manson",
+                "producer": "Sean Beavan",
+                "label": "Nothing",
+                "length": "77:26",
+                "genre": [
+                    "Industrial Metal",
+                    "Alternative Metal",
+                    "Gothic Rock",
+                    "Industrial Rock"
+                ],
+                "released": "8 October 1996"
+            }
+    ]
+}
