@@ -20,7 +20,7 @@ function Navbar() {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" color="primary" maxWidth="100vw">
+        <AppBar position="static" color="primary">
           <Container maxWidth="x1">
             <Toolbar disableGutters>
               <IconButton
