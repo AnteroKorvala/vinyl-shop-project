@@ -1,0 +1,53 @@
+.feed {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.item-container {
+    height: fit-content;
+    width: fit-content;
+    max-height: 400px;
+    max-width: 400px;
+    padding: 15px;
+    margin: 30px 30px 30px 30px;
+    text-align: left;
+    border-color: lightgray;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 5px 3px 5px rgb(236, 236, 236);
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.item-image {
+    border-radius: 25px;
+    height: auto;
+    width: auto;
+    max-width: 250px;
+    max-height: 250px;
+}
+
+.item-name {
+
+}
+
+.item-artist {
+
+}
+
+.item-genre {
+
+}
+
+.item-released {
+
+}
+
+.item-length {
+
+}
+
+.item-producer {
+
+}

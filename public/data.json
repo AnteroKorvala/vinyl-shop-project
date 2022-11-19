@@ -8,12 +8,10 @@
                 "label": "Sound in Color",
                 "length": "65:11",
                 "genre": [
-                    "Hip Hop",
-                    "Rap",
-                    "Conscious Rap",
-                    "West Coast"
+                    "Hip Hop"
                 ],
-                "released": "July 17 2007"
+                "released": "July 17 2007",
+                "image": "belowtheheavens"
             },
             {
                 "id": 2,
@@ -25,7 +23,8 @@
                 "genre": [
                     "Heavy Metal"
                 ],
-                "released": "22 March 1982"
+                "released": "22 March 1982",
+                "image": "belowtheheavens"
             },
             {
                 "id": 3,
@@ -35,12 +34,23 @@
                 "label": "Nothing",
                 "length": "77:26",
                 "genre": [
-                    "Industrial Metal",
-                    "Alternative Metal",
-                    "Gothic Rock",
-                    "Industrial Rock"
+                    "Industrial Metal"
                 ],
-                "released": "8 October 1996"
+                "released": "8 October 1996",
+                "image": "belowtheheavens"
+            },
+            {
+                "id": 4,
+                "name": "Czarmageddon!",
+                "artist": "CZARFACE",
+                "producer": "7L",
+                "label": "Silver Age",
+                "length": "31:46",
+                "genre": [
+                    "Alternative Hip Hop"
+                ],
+                "released": "29 April 2022",
+                "image": "belowtheheavens"
             }
     ]
 }
