@@ -1,5 +1,7 @@
 .feed-container {
     background-color: #ee5c61;
+    padding-top: 1%;
+    padding-bottom: 1%;
 }
 
 .feed {
@@ -19,7 +21,7 @@
     border-color: lightgray;
     border-style: solid;
     border-width: 1px;
-    background-color: white;
+    background-color: #fff1f2;
     box-shadow: 5px 3px 5px #c24a4e;
     border-radius: 25px;
     cursor: pointer;

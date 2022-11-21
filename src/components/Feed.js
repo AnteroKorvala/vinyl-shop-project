@@ -59,7 +59,7 @@ function Feed() {
               <div className='item-name'>{item.name}</div>
               <div className='item-artist'>by  {item.artist}</div>
               <div className='item-genre'>Genre: {item.genre}</div>
-              <div className='item-released'>{item.released}</div>
+              <div className='item-released'>Released: {item.released}</div>
             </div>
           )
         })}
