@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom"
 import './Feed.css'
-import belowtheheavens from './images/belowtheheavens.png'
-import numberofthebeast from './images/numberofthebeast.png'
-import antichristsuperstar from './images/antichristsuperstar.png'
-import czarmageddon from './images/czarmageddon.png'
+import images from './Images.js'
+import Vinyl from './Vinyl'
+
+/*
+TODO
+Enhance background colors
+Create carousel component
+*/
 
 function Feed() {
+  const navigate = useNavigate()
   const [data, setData] = useState([])
 
   const getData = () => {
@@ -30,25 +36,36 @@ function Feed() {
     getData()
   }, [])
 
+  function ChooseImage(id) {
+    console.log(images)
+    console.log(id)
+    return images[id]
+  }
+
   return (
-    <>
-    <div className='feed'>
-      {data && data.length > 0 &&
-      data.map((item) => {
-        return (
-          <div key={item.id} className='item-container'>
-            <img className='item-image' src={item.image.split("")} alt='bth' />
-            <div className='item-name'>{item.name}</div>
-            <div className='item-artist'>{item.artist}</div>
-            <div className='item-genre'>{item.genre}</div>
-            <div className='item-released'>{item.released}</div>
-            <div className='item-length'>{item.length}</div>
-            <div className='item-producer'>{item.producer}</div>
-          </div>
-        )
-      })}
+    <div className='feed-container'>
+      <div className='feed'>
+        {data && data.length > 0 &&
+        data.map((item) => {
+          return (
+            <div
+              key={item.id}
+              className='item-container'
+              onClick={() => {
+                navigate(`/recordID/${item.id}`)
+              }}
+            >
+              <img className='item-image' src={ChooseImage(item.id)} alt='album-cover' />
+              <div className='item-name'>{item.name}</div>
+              <div className='item-artist'>by  {item.artist}</div>
+              <div className='item-genre'>Genre: {item.genre}</div>
+              <div className='item-released'>{item.released}</div>
+            </div>
+          )
+        })}
+      </div>
+      <Vinyl />
     </div>
-    </>
   )
 }
 

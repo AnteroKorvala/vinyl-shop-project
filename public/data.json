@@ -1,33 +1,7 @@
 {
     "records": [
             {
-                "id": 1,
-                "name": "Below the Heavens",
-                "artist": "Blu",
-                "producer": "Exile",
-                "label": "Sound in Color",
-                "length": "65:11",
-                "genre": [
-                    "Hip Hop"
-                ],
-                "released": "July 17 2007",
-                "image": "belowtheheavens"
-            },
-            {
-                "id": 2,
-                "name": "Number of the Beast",
-                "artist": "Iron Maiden",
-                "producer": "Martin Birch",
-                "label": "EMI",
-                "length": "39:11",
-                "genre": [
-                    "Heavy Metal"
-                ],
-                "released": "22 March 1982",
-                "image": "belowtheheavens"
-            },
-            {
-                "id": 3,
+                "id": 0,
                 "name": "Antichrist Superstar",
                 "artist": "Marilyn Manson",
                 "producer": "Sean Beavan",
@@ -36,11 +10,22 @@
                 "genre": [
                     "Industrial Metal"
                 ],
-                "released": "8 October 1996",
-                "image": "belowtheheavens"
+                "released": "8 October 1996"
             },
             {
-                "id": 4,
+                "id": 1,
+                "name": "Below the Heavens",
+                "artist": "Blu",
+                "producer": "Exile",
+                "label": "Sound in Color",
+                "length": "65:11",
+                "genre": [
+                    "Hip Hop, Conscious Rap"
+                ],
+                "released": "July 17 2007"
+            },
+            {
+                "id": 2,
                 "name": "Czarmageddon!",
                 "artist": "CZARFACE",
                 "producer": "7L",
@@ -49,8 +34,43 @@
                 "genre": [
                     "Alternative Hip Hop"
                 ],
-                "released": "29 April 2022",
-                "image": "belowtheheavens"
+                "released": "29 April 2022"
+            },
+            {
+                "id": 3,
+                "name": "Lonely City",
+                "artist": "Specifics",
+                "producer": "Think Twice",
+                "label": "P-Vine Records",
+                "length": "58:50",
+                "genre": [
+                    "Jazz Rap"
+                ],
+                "released": "3 December 2004"
+            },
+            {
+                "id": 4,
+                "name": "Number of the Beast",
+                "artist": "Iron Maiden",
+                "producer": "Martin Birch",
+                "label": "EMI",
+                "length": "39:11",
+                "genre": [
+                    "Heavy Metal"
+                ],
+                "released": "22 March 1982"
+            },
+            {
+                "id": 5,
+                "name": "The Ecstatic",
+                "artist": "Mos Def",
+                "producer": "DJ Preservation",
+                "label": "Downtown",
+                "length": "45:34",
+                "genre": [
+                    "Alternative Hip Hop, Conscious Rap"
+                ],
+                "released": "9 June 2009"
             }
     ]
 }

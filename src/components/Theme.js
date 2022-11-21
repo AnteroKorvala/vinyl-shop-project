@@ -23,6 +23,8 @@ E9FFF9 Light Cyan
 9ED8DB Powder Blue
 467599 Queen Blue
 1D3354 Prussian Blue
+
+New background #ee5c61
 */
 
 export default theme
