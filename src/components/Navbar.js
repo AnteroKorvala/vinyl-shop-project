@@ -21,7 +21,7 @@ function Navbar() {
     <div className="navbar-container">
       <ThemeProvider theme={theme}>
         <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static" color="primary">
+          <AppBar position="sticky" color="primary">
             <Container maxWidth="x1">
               <Toolbar disableGutters>
                 <IconButton
