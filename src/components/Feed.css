@@ -10,6 +10,11 @@
     justify-content: center;
 }
 
+.carousel {
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
 .item-container {
     height: fit-content;
     width: fit-content;
@@ -43,6 +48,12 @@
     border-radius: 15px;
     height: 250px;
     width: 250px;
+}
+
+.item-image-carousel {
+    border-radius: 15px;
+    height: 500px;
+    width: 500px;
 }
 
 .item-name {
