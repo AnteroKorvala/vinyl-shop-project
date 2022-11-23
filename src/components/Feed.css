@@ -14,7 +14,7 @@
 
 .popup {
     left: 16px;
-    position:absolute;
+    position: fixed;
     display: flex;
     flex-direction: row;
     width: fit-content;
