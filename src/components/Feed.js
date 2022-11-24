@@ -15,7 +15,7 @@ Create carousel component
 
 function Feed() {
   const navigate = useNavigate()
-  const [data, setData] = useState([])
+  const [data, setData] = useState(null)
   const [isOpen, setIsOpen] = useState(true)
   const togglePopup = () => setIsOpen(!isOpen)
 
@@ -57,7 +57,7 @@ function Feed() {
             </>}
           />
         </div>}
-        {/* <div className='carousel'>
+        <div className='carousel'>
           <Carousel>
             {data && data.length > 0 &&
             data.map((item) => {
@@ -69,7 +69,7 @@ function Feed() {
             })
             }
           </Carousel>
-        </div> */}
+        </div>
         <div className='all-albums-container'>
           {data && data.length > 0 &&
           data.map((item) => {
