@@ -52,12 +52,50 @@
     padding-bottom: 1%;
 }
 
-.carousel-item-wrapper {
-    
+.carousel-item-image {
+    border-radius: 15px;
+    height: 500px;
+    width: 500px;
 }
 
-.carousel-item-text {
+.carousel-item-image:hover ~ .carousel-item-details2 {
+    opacity: 1.0;
+}
 
+.carousel-item-details1 {
+    margin-right: 6%;
+    visibility: hidden;
+}
+
+.carousel-item-details2 {
+    margin-left: 6%;
+    opacity: 0.0;
+    -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -ms-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out
+}
+
+.carousel-item-name {
+    font-size: 42px;
+    font-weight: 600;
+    font-style: oblique;
+}
+
+.carousel-item-artist {
+    margin-top: 8px;
+    font-size: 30px;
+}
+
+.carousel-item-genre {
+    margin-top: 20px;
+    font-size: 23px;
+}
+
+.carousel-item-released {
+    margin-top: 3px;
+    font-size: 18px;
 }
 
 .all-albums-container {
@@ -101,12 +139,6 @@
     width: 250px;
 }
 
-.item-image-carousel {
-    border-radius: 15px;
-    height: 500px;
-    width: 500px;
-}
-
 .item-name {
     padding-top: 2px;
     padding-bottom: 2px;
@@ -118,8 +150,4 @@
     padding-top: 3px;
     padding-bottom: 5px;
     font-size: 19px;
-}
-
-a {
-    font-size: 17px;
 }

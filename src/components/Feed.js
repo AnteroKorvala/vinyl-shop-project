@@ -59,8 +59,26 @@ function Feed() {
             {data && data.length > 0 &&
             data.map((item) => {
               return (
-                <CarouselItem className='carousel-item-wrapper'>
-                  <img className='item-image-carousel' src={ChooseImage(item.id)} alt='album-cover'/>
+                <CarouselItem>
+                  <div className='carousel-item-details1'>
+                    <div className='carousel-item-name'>{item.name}</div>
+                    <div className='carousel-item-artist'>by  {item.artist}</div>
+                    <div className='carousel-item-genre'>Genre: {item.genre}</div>
+                    <div className='carousel-item-released'>Released: {item.released}</div>
+                    <div className='carousel-item-released'>Length: {item.length}</div>
+                    <div className='carousel-item-released'>Producer: {item.producer}</div>
+                    <div className='carousel-item-released'>Label: {item.label}</div>
+                  </div>
+                  <img className='carousel-item-image' src={ChooseImage(item.id)} alt='album-cover'/>
+                  <div className='carousel-item-details2'>
+                    <div className='carousel-item-name'>{item.name}</div>
+                    <div className='carousel-item-artist'>by  {item.artist}</div>
+                    <div className='carousel-item-genre'>Genre: {item.genre}</div>
+                    <div className='carousel-item-released'>Released: {item.released}</div>
+                    <div className='carousel-item-released'>Length: {item.length}</div>
+                    <div className='carousel-item-released'>Producer: {item.producer}</div>
+                    <div className='carousel-item-released'>Label: {item.label}</div>
+                  </div>
                 </CarouselItem>
               )
             })
@@ -84,6 +102,9 @@ function Feed() {
                 <div className='item-artist'>by  {item.artist}</div>
                 <div className='item-genre'>Genre: {item.genre}</div>
                 <div className='item-released'>Released: {item.released}</div>
+                <div className='item-released'>Length: {item.length}</div>
+                <div className='item-released'>Producer: {item.producer}</div>
+                <div className='item-released'>Label: {item.label}</div>
               </div>
             )
           })}
