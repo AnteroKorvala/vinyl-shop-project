@@ -4,8 +4,8 @@
 
 .feed {
     background-color: #ee5c61;
-    padding-top: 1%;
-    padding-bottom: 1%;
+    padding-top: 2%;
+    padding-bottom: 2%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -38,7 +38,16 @@
     background-color: rgb(194, 194, 194);
 }
 
-.carousel {
+.carousel-header {
+    font-style: oblique;
+    font-weight: 600;
+    font-size: 28px;
+    color: white;
+    opacity: 85%;
+    margin-bottom: 1%;
+}
+
+.carousel-container {
     padding-top: 1%;
     padding-bottom: 1%;
 }

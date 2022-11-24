@@ -7,12 +7,6 @@ import Popup from './Popup'
 import CloseIcon from '@mui/icons-material/Close'
 import Carousel, {CarouselItem} from './Carousel'
 
-/*
-TODO
-Enhance background colors
-Create carousel component
-*/
-
 function Feed() {
   const navigate = useNavigate()
   const [data, setData] = useState(null)
@@ -57,7 +51,10 @@ function Feed() {
             </>}
           />
         </div>}
-        <div className='carousel'>
+        {/* <div className='carousel-header'>
+          Check out the latest releases
+        </div> */}
+        <div className='carousel-container'>
           <Carousel>
             {data && data.length > 0 &&
             data.map((item) => {
@@ -70,6 +67,7 @@ function Feed() {
             }
           </Carousel>
         </div>
+        <Vinyl />
         <div className='all-albums-container'>
           {data && data.length > 0 &&
           data.map((item) => {
