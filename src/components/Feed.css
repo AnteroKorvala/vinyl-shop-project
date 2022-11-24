@@ -52,6 +52,14 @@
     padding-bottom: 1%;
 }
 
+.carousel-item-wrapper {
+    
+}
+
+.carousel-item-text {
+
+}
+
 .all-albums-container {
     display: flex;
     flex-wrap: wrap;

@@ -59,7 +59,7 @@ function Feed() {
             {data && data.length > 0 &&
             data.map((item) => {
               return (
-                <CarouselItem>
+                <CarouselItem className='carousel-item-wrapper'>
                   <img className='item-image-carousel' src={ChooseImage(item.id)} alt='album-cover'/>
                 </CarouselItem>
               )

@@ -22,7 +22,7 @@ const Carousel = ({ children }) => {
 useEffect(() => {
     const interval = setInterval(() => {
         if(!paused) updateIndex(activeIndex + 1)
-    }, 1000)
+    }, 1500)
 
     return () => clearInterval(interval)
 })
