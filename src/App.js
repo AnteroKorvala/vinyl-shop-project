@@ -4,11 +4,12 @@ import Navbar from './components/Navbar'
 import { ThemeProvider } from '@mui/system'
 import {
   BrowserRouter as Router,
-  // Route,
-  // Link
+  Routes,
+  Route,
 } from 'react-router-dom'
 import theme from './components/Theme'
 import Feed from './components/Feed'
+import Profile from './components/Profile'
 
 function App() {
   const [userLoggedIn, setUserLoggedIn] = useState(true)
@@ -16,8 +17,23 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Navbar isUserLoggedIn={userLoggedIn} />
-        <Feed />
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <>
+                <Navbar isUserLoggedIn={userLoggedIn} />
+                <Feed />
+              </>
+            }
+          />
+          <Route
+            path='/profile' //when getting id, do /profile/ID
+            element={
+              <Profile /> // and <Profile id={id} />
+            }
+          />
+        </Routes>
       </Router>
     </ThemeProvider>
   )
