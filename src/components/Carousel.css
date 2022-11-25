@@ -43,7 +43,7 @@
     background-color: rgb(51, 120, 160);
 }
 
-@media screen {
+@media screen and (max-width: 992px) {
     .indicators > button {
         box-shadow: 5px 3px 5px #863437;
         margin: 0.3rem;
