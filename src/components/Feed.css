@@ -1,0 +1,153 @@
+.feed-container {
+    
+}
+
+.feed {
+    background-color: #ee5c61;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+}
+
+.popup {
+    left: 16px;
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    height: fit-content;
+    background-color: rgb(0, 0, 0);
+    border-radius: 30px;
+    padding: 12px 8px 0px 8px;
+    z-index: 999;
+    opacity: 80%;
+    font-size: 12px;
+    color: white;
+}
+
+.popup-text {
+    margin-bottom: 5px;
+}
+
+.popup-close:hover {
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: rgb(194, 194, 194);
+}
+
+.carousel-header {
+    font-style: oblique;
+    font-weight: 600;
+    font-size: 28px;
+    color: white;
+    opacity: 85%;
+    margin-bottom: 1%;
+}
+
+.carousel-container {
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.carousel-item-image {
+    border-radius: 15px;
+    height: 500px;
+    width: 500px;
+}
+
+.carousel-item-image:hover ~ .carousel-item-details2 {
+    opacity: 1.0;
+}
+
+.carousel-item-details1 {
+    margin-right: 6%;
+    visibility: hidden;
+}
+
+.carousel-item-details2 {
+    margin-left: 6%;
+    opacity: 0.0;
+    -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -ms-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out
+}
+
+.carousel-item-name {
+    font-size: 42px;
+    font-weight: 600;
+    font-style: oblique;
+}
+
+.carousel-item-artist {
+    margin-top: 8px;
+    font-size: 30px;
+}
+
+.carousel-item-genre {
+    margin-top: 20px;
+    font-size: 23px;
+}
+
+.carousel-item-released {
+    margin-top: 3px;
+    font-size: 18px;
+}
+
+.all-albums-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.item-container {
+    height: fit-content;
+    width: fit-content;
+    max-height: 309px;
+    max-width: 250px;
+    padding: 15px;
+    margin: 30px 30px 30px 30px;
+    font-size: 16px;
+    border-color: lightgray;
+    border-style: solid;
+    border-width: 1px;
+    background-color: #fff1f2;
+    box-shadow: 5px 3px 5px #863437;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform .2s;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.item-container:hover {
+    transform: scale(1.15);
+}
+
+.item-container::-webkit-scrollbar {
+    display: none;
+}
+
+.item-image {
+    border-radius: 15px;
+    height: 250px;
+    width: 250px;
+}
+
+.item-name {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+.item-artist {
+    padding-top: 3px;
+    padding-bottom: 5px;
+    font-size: 19px;
+}

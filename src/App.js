@@ -1,14 +1,21 @@
 import './App.css'
 import Navbar from './components/Navbar'
 import { ThemeProvider } from '@mui/system'
+import {
+  BrowserRouter as Router,
+  // Route,
+  // Link
+} from 'react-router-dom'
 import theme from './components/Theme'
-import Vinyl from './components/Vinyl'
+import Feed from './components/Feed'
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Navbar />
-      <Vinyl />
+      <Router>
+        <Navbar />
+        <Feed />
+      </Router>
     </ThemeProvider>
   )
 }
