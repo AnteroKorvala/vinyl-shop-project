@@ -1,11 +1,15 @@
 import { FormControl, FormHelperText, InputLabel, Input } from '@mui/material'
 import React from 'react'
 import './Profile.css'
+import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 
 function Profile() {
   return (
     <div className='profile-container'>
-      <div className='form'>
+      <div className='form-profile'>
+        <div className='form-profile-icon'>
+          <AccountCircleIcon sx={{fontSize: "5em"}} />
+        </div>
         <FormControl className='form-item'>
           <InputLabel htmlFor='username'>Username</InputLabel>
           <Input id="username" aria-describedby="username-helper" />

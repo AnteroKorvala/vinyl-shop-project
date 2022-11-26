@@ -81,7 +81,6 @@ function Navbar(props) {
                   </IconButton>}
                   <IconButton
                     sx={{mr: 0}}
-                    onClick={console.log('implement profile action')}
                     color="inherit"
                     href="/profile"
                   >

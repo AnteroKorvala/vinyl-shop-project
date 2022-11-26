@@ -5,6 +5,7 @@
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;
+    align-items: center;
 }
 
 .form {
@@ -16,6 +17,20 @@
     background-color: white;
 }
 
+.form-profile {
+    display: flex;
+    flex-direction: column;
+    margin: 3%;
+    padding: 2% 3% 5% 3%;
+    border-radius: 1rem;
+    background-color: white;
+}
+
+.form-profile-icon:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
 .form-item {
-    margin: 0.8em 0em 0em 0em;
+    margin: 1em 0em 0em 0em;
 }
