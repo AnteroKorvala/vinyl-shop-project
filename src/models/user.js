@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import dbo from '../services/db/conn.js';
 
 const Schema = mongoose.Schema;
-dbo.connector.adminConnection()
+dbo.adminConnection()
     .then(() => console.log('Db connection made for User model'));
 
 //Defining vinyl schema

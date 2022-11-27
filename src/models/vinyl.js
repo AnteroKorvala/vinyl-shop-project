@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import dbo from '../services/db/conn.js';
 
 const Schema = mongoose.Schema;
-dbo.connector.adminConnection()
+dbo.adminConnection()
     .then(() => console.log('Db connection made for vinyl model'));
 
 //Defining vinyl schema
@@ -14,7 +14,7 @@ let vinylSchema = new Schema({
     length: String,
     genre: String,
     released: String,
-    coverName: String
+    cover: String
 });
 
 //Creating vinyl model

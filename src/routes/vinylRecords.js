@@ -1,28 +1,24 @@
 import express from 'express';
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-import multer from 'multer';
 import dbo from '../services/db/conn.js';
 import Vinyl from '../models/vinyl.js';
+import Upload from '../services/middleware/upload.js';
 import adminAuth from "../services/middleware/adminAuth.js";
-import userAuth from "../services/middleware/userAuth.js";
 
 const recordRoutes = express.Router();
 
-const vinylDB = (await dbo.connector.adminConnection());
-const urlencodedParser = bodyParser.urlencoded({extended: false});
-const jsonParser = bodyParser.json();
-
-const upload = multer({storage: dbo.imageStorage}).single("cover");
-
-
-let gfs
-vinylDB.connection.once('open', () => {
-    console.log('PLEASE GFS');
-    gfs = new mongoose.mongo.GridFSBucket(vinylDB.connection.db, {
+//let gfs;
+const vinylDB = (await dbo.adminConnection());
+/*const conn = vinylDB.connection;
+conn.once("open", () => {
+    gfs = new mongoose.mongo.GridFSBucket(conn.db, {
         bucketName: "uploads"
     });
-});
+});*/
+
+const urlencodedParser = bodyParser.urlencoded({extended: false});
+const jsonParser = bodyParser.json();
 
 //Main page FEED / GET one ALL vinyl
 recordRoutes.get('/', async (req, res) => {
@@ -33,36 +29,52 @@ recordRoutes.get('/', async (req, res) => {
             result.forEach((res) => {
                 delete res.__v;
             });
-/*            gfs.find().toArray().then((imageRes) => {
-                if (!imageRes || imageRes.length === 0) {
-                    return res.status(200).json({
-                        success: false,
-                        message: 'No Files'
-                    });
-                }
-                imageRes.map(file => {
-                    file.isImage = file.contentType === 'image/jpeg'
-                        || file.contentType === 'image/png';
-                });
-                res.status(200).json({
-                    success: true,
-                    imageRes
-                });
-            });*/
             res.json(result);
         })
         .catch((error) => {
             res.status(400).send(`Error fetching VINYLS! ${error}`);
         });
+/*    gfs.find().toArray()
+        .then((files) => {
+            if (!files || files.length === 0) {
+                return res.status(200).json({
+                    success: false,
+                    message: 'No files available'
+                });
+            }
+            files.map(file => {
+                file.isImage = file.contentType === 'image/jpeg'
+                    || file.contentType === 'image/png';
+            });
+            res.status(200).json({
+                success: true,
+                files
+            });
+    });
+    vinyls.map(vinyl => {
+
+    })*/
+});
+
+//GET one vinyl
+recordRoutes.get('/oneVinyl', jsonParser, async (req, res) => {
+    let query = req?.body?._id;
+    await Vinyl.findOne({ _id: query })
+        .then((result) => {
+            delete result.__v;
+            return res.status(200).send(result);
+        }).catch((err) => {
+            return res.status(400).send(err);
+        });
 });
 
 //ADD a new vinyl record
-recordRoutes.post('/addVinyl', adminAuth, upload, jsonParser, (req, res) => {
+recordRoutes.post('/addVinyl', adminAuth, Upload.single("cover"), jsonParser, (req, res) => {
+    if (req.file === undefined) return res.send('A file must be provided');
     if (Object.keys(req.body).length === 0 &&
         Object.keys(req.params).length === 0) {
         res.status(400).send('Body or params needed');
     }
-    console.log(`Filename ${req.body.cover}`);
     const newVinyl = new Vinyl({
         name: req.body.name,
         artist: req.body.artist,
@@ -85,7 +97,7 @@ recordRoutes.post('/addVinyl', adminAuth, upload, jsonParser, (req, res) => {
 });
 
 //UPDATE a vinyl record
-recordRoutes.put('/updateVinyl', adminAuth, urlencodedParser, (req, res) => {
+recordRoutes.put('/updateVinyl', adminAuth, jsonParser, (req, res) => {
     if (Object.keys(req.body).length === 0 &&
         Object.keys(req.params).length === 0) {
         res.status(400).send('Body or params needed');
@@ -114,7 +126,7 @@ recordRoutes.put('/updateVinyl', adminAuth, urlencodedParser, (req, res) => {
     }));
 });
 
-recordRoutes.delete('/deleteVinyl', adminAuth, urlencodedParser, async (req, res, next) => {
+recordRoutes.delete('/deleteVinyl', adminAuth, jsonParser, async (req, res) => {
     let query = { _id: req?.body?.id };
     if (!query) res.status(400).send('Input required to delete vinyl');
     await Vinyl.deleteOne(query)

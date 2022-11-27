@@ -4,19 +4,21 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dbo from '../services/db/conn.js';
 import User from '../models/user.js';
+import wishlist from "../models/wishlist.js";
 import auth from '../services/middleware/adminAuth.js';
 import dotenv from "dotenv";
 import adminAuth from "../services/middleware/adminAuth.js";
+import userAuth from "../services/middleware/userAuth.js";
 
 dotenv.config();
 
 const userRecordsRoute = express.Router();
 
-const userDB = (await dbo.connector.adminConnection());
+const userDB = (await dbo.adminConnection());
 const urlencodedParser = bodyParser.urlencoded({extended: false});
 const jsonParser = bodyParser.json();
 
-userRecordsRoute.post('/register', urlencodedParser, async (req, res) => {
+userRecordsRoute.post('/register', jsonParser, async (req, res) => {
     try {
         //Get user input
         const {username, email, password, admin} = req.body;
@@ -53,13 +55,18 @@ userRecordsRoute.post('/register', urlencodedParser, async (req, res) => {
                 expiresIn: "2h"
             }
         );
+        //Create user wishlist
+        await wishlist.create({
+            email: email.toLowerCase()
+        });
+
         res.status(201).json(newUser);
     } catch (err) {
         res.status(400).send(`Something went wrong with the request REGISTER: ${err}`);
     }
 });
 
-userRecordsRoute.post('/login', urlencodedParser, async (req, res) => {
+userRecordsRoute.post('/login', jsonParser, async (req, res) => {
     try {
         const {email, password} = req.body;
 
@@ -96,19 +103,26 @@ userRecordsRoute.post('/login', urlencodedParser, async (req, res) => {
 });
 
 //DELETE user
-userRecordsRoute.delete('/deleteUser', adminAuth, urlencodedParser, async (req, res) => {
+userRecordsRoute.delete('/deleteUser', adminAuth, jsonParser, async (req, res) => {
     //Validate input
     let query = {username: req?.body?.username, email: req?.body?.email};
     if (!query) res.status(400).send('Input required to delete user');
 
     await User.deleteOne(query)
-        .then((result) => {
+        .then(async (result) => {
             if (result.deletedCount === 0) {
                 res.status(200)
                     .send(`Provided user does not exist`);
             } else {
-                res.status(200)
-                    .send(`Successful operation: ${result.acknowledged} Delete count: ${result.deletedCount}`);
+                await wishlist.deleteOne(query.email)
+                    .then((result) => {
+                        if (result.deletedCount === 0) {
+                            res.status(500).send('No wishlist for deleted user');
+                        } else {
+                            res.status(200)
+                                .send(`Successful operation: ${result.acknowledged} Delete count: ${result.deletedCount}`);
+                        }
+                    })
             }
         })
         .catch((error) => {
@@ -117,17 +131,20 @@ userRecordsRoute.delete('/deleteUser', adminAuth, urlencodedParser, async (req, 
 });
 
 //UPDATE user
-userRecordsRoute.put('/updateUser', adminAuth, urlencodedParser, async (req, res) => {
+userRecordsRoute.put('/updateUser', userAuth, jsonParser, async (req, res) => {
     try {
         const query = req.body;
-        if (!query) {
-            return res.status(400).send('Input required');
+        if (!(query.username && query.email && query.password)) {
+            return res.status(400).send('All input required');
         }
+
+        //Encrypt user password
+        const encryptedPassword = bcrypt.hash(query.password, 10);
 
         await User.findOneAndUpdate(query.token, {
             username: query.username,
             email: query.email,
-            password: query.password,
+            password: encryptedPassword,
         },
             {
                 new: true
