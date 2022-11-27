@@ -12,10 +12,11 @@ const wishlistDB = (await dbo.adminConnection());
 const jsonParser = bodyParser.json();
 const urlencodedParser = bodyParser.urlencoded({extended: false});
 
-wishlistRoutes.get('/wishlist', userAuth, async (req, res) => {
+//DOESNT WORK
+wishlistRoutes.get('/wishlist', jsonParser, userAuth, async (req, res) => {
+    let query = req.body;
     (await wishlistDB).connection.collection('wishlist')
-        .find({}).limit(50)
-        .toArray()
+        .findOne({ query })
         .then((result) => {
             res.send(result);
         }).catch((err) => {
