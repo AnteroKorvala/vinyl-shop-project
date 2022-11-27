@@ -4,8 +4,9 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dbo from '../services/db/conn.js';
 import User from '../models/user.js';
-import auth from '../services/middleware/auth.js';
+import auth from '../services/middleware/adminAuth.js';
 import dotenv from "dotenv";
+import adminAuth from "../services/middleware/adminAuth.js";
 
 dotenv.config();
 
@@ -18,11 +19,10 @@ const jsonParser = bodyParser.json();
 userRecordsRoute.post('/register', urlencodedParser, async (req, res) => {
     try {
         //Get user input
-        const {username, email, password} = req.body;
-
+        const {username, email, password, admin} = req.body;
         //Validate input
         if (!(email && password && username)) {
-            res.status(400).send('All input is required');
+            return res.status(400).send('All input is required');
         }
 
         //Check if user exists
@@ -34,19 +34,19 @@ userRecordsRoute.post('/register', urlencodedParser, async (req, res) => {
 
         //Encrypt user password
         const encryptedPassword = await bcrypt.hash(password, 10);
-
         //Create new user
         const newUser = await User.create({
             username,
             email: email.toLowerCase(),
-            password: encryptedPassword
+            password: encryptedPassword,
+            admin: admin.toLowerCase() === "true"
         });
 
         //Create token
         //Save user token
         newUser.token = jwt.sign(
             {
-                user_id: newUser._id, email
+                user_id: newUser._id, email, admin: admin.toLowerCase() === "true"
             },
             process.env.TOKEN_KEY,
             {
@@ -70,12 +70,12 @@ userRecordsRoute.post('/login', urlencodedParser, async (req, res) => {
 
         //Check if user exists
         const user = await User.findOne({email});
-
         if (user && (await bcrypt.compare(password, user.password))) {
+            const admin = user.admin;
             //Create token
             //Save user token
             user.token = jwt.sign(
-                {user_id: user._id, email},
+                { user_id: user._id, email, admin: admin.toLowerCase() === "true" },
                 process.env.TOKEN_KEY,
                 {
                     expiresIn: "2h"
@@ -96,7 +96,7 @@ userRecordsRoute.post('/login', urlencodedParser, async (req, res) => {
 });
 
 //DELETE user
-userRecordsRoute.delete('/deleteUser', auth, urlencodedParser, async (req, res) => {
+userRecordsRoute.delete('/deleteUser', adminAuth, urlencodedParser, async (req, res) => {
     //Validate input
     let query = {username: req?.body?.username, email: req?.body?.email};
     if (!query) res.status(400).send('Input required to delete user');

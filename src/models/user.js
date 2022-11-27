@@ -7,9 +7,23 @@ dbo.connector.adminConnection()
 
 //Defining vinyl schema
 let userSchema = new Schema({
-    username: String,
-    email: {type: String, unique: true},
-    password: String,
+    admin: {
+      type: Boolean,
+        default: false
+    },
+    username: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
     token: String
 });
 

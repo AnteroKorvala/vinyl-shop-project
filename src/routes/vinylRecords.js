@@ -4,7 +4,8 @@ import bodyParser from "body-parser";
 import multer from 'multer';
 import dbo from '../services/db/conn.js';
 import Vinyl from '../models/vinyl.js';
-import auth from "../services/middleware/auth.js";
+import adminAuth from "../services/middleware/adminAuth.js";
+import userAuth from "../services/middleware/userAuth.js";
 
 const recordRoutes = express.Router();
 
@@ -25,7 +26,7 @@ vinylDB.connection.once('open', () => {
 
 //Main page FEED / GET one ALL vinyl
 recordRoutes.get('/', async (req, res) => {
-    vinylDB.connection.collection('vinyls')
+    (await vinylDB).connection.collection('vinyls')
         .find({}).limit(50)
         .toArray()
         .then((result) => {
@@ -56,7 +57,7 @@ recordRoutes.get('/', async (req, res) => {
 });
 
 //ADD a new vinyl record
-recordRoutes.post('/addVinyl', auth, upload, jsonParser, (req, res) => {
+recordRoutes.post('/addVinyl', adminAuth, upload, jsonParser, (req, res) => {
     if (Object.keys(req.body).length === 0 &&
         Object.keys(req.params).length === 0) {
         res.status(400).send('Body or params needed');
@@ -84,7 +85,7 @@ recordRoutes.post('/addVinyl', auth, upload, jsonParser, (req, res) => {
 });
 
 //UPDATE a vinyl record
-recordRoutes.put('/updateVinyl', auth, urlencodedParser, (req, res) => {
+recordRoutes.put('/updateVinyl', adminAuth, urlencodedParser, (req, res) => {
     if (Object.keys(req.body).length === 0 &&
         Object.keys(req.params).length === 0) {
         res.status(400).send('Body or params needed');
@@ -113,7 +114,7 @@ recordRoutes.put('/updateVinyl', auth, urlencodedParser, (req, res) => {
     }));
 });
 
-recordRoutes.delete('/deleteVinyl', auth, urlencodedParser, async (req, res, next) => {
+recordRoutes.delete('/deleteVinyl', adminAuth, urlencodedParser, async (req, res, next) => {
     let query = { _id: req?.body?.id };
     if (!query) res.status(400).send('Input required to delete vinyl');
     await Vinyl.deleteOne(query)
