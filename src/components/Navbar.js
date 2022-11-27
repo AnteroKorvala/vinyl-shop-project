@@ -5,7 +5,7 @@ import ListAltIcon from "@mui/icons-material/ListAlt"
 import SearchIcon from '@mui/icons-material/Search'
 import { ThemeProvider } from '@mui/system'
 import theme from './Theme'
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import {
   AppBar,
   Container,
@@ -23,10 +23,16 @@ function Navbar(props) {
   const [searchTerm, setSearchTerm] = useState("")
   const [resultShow, setResultShow] = useState()
   const isUserLoggedIn = props.isUserLoggedIn
+
+  useEffect(() => {
+    console.log(searchTerm)
+    console.log(resultShow)
+  })
   
   useEffect(() => {
     Axios.get(Constants.API_ADDRESS + '/').then(
       (response) => {
+        console.log('ihere')
         const vinylArray = response.data
         const resultArray = vinylArray.map((item) => ({
           vinylID: item._id,
@@ -93,11 +99,40 @@ function Navbar(props) {
                         )
                       }}
                     >
-                      IMPLEMENT ME!!!!!!!!!!!!!!!!
                     </TextField>
-                    {resultShow && <div className="search-results">
-                      resultShow.filter
-                    </div>}
+                    <div className="search-results">
+                      {searchTerm && 
+                        resultShow.filter((item) => {
+                          if(searchTerm === "") return item
+                          else if(
+                            (item.name)
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase())
+                          ) return item
+                          else if(
+                            (item.artist)
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase())
+                          ) return item
+                        }).map((item, vinylID) => {
+                          return (
+                            <div
+                              className="result-vinyl"
+                              key={vinylID}
+                              
+                            >
+                              <div>{item.name}</div>
+                              <div>{item.artist}</div>
+                              <div>{item.genre}</div>
+                              <button onClick={() => {
+                                  Navigate(`/oneVinyl/${item.vinylID}`)
+                                }}>
+                              </button>
+                            </div>
+                          )
+                        })
+                      }
+                    </div>
                   </div>
                 </Box>
                 <Box sx={{mr: 10}}>

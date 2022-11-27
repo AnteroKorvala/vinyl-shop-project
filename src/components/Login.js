@@ -50,11 +50,11 @@ function Login(props) {
         {alertMessage && <Alert variant='filled' severity="error" sx={{width: '100%', }} >{alertMessage}</Alert>}
         <div className='form-item'>
           <FormControl>
-            <InputLabel htmlFor='email'>Username</InputLabel>
+            <InputLabel htmlFor='email'>Email</InputLabel>
             <Input
               id="email"
               type='email'
-              aria-describedby="username-helper"
+              aria-describedby="email-helper"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />

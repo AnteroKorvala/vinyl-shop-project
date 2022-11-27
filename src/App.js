@@ -37,7 +37,7 @@ function App() {
             }
           />
           <Route
-            path='record/:id'
+            path='/oneVinyl/:id'
             element={
               <Record  />
             }
