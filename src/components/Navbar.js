@@ -82,7 +82,7 @@ function Navbar(props) {
                   <IconButton
                     sx={{mr: 0}}
                     color="inherit"
-                    href="/profile"
+                    href={isUserLoggedIn ? "/profile" : "/login"}
                   >
                     <AccountCircleIcon sx={{ fontSize: "40px" }} />
                   </IconButton>

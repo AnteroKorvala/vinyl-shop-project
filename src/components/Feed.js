@@ -59,7 +59,7 @@ function Feed() {
             {data && data.length > 0 &&
             data.map((item) => {
               return (
-                <CarouselItem>
+                <CarouselItem key={item.id}>
                   <div className='carousel-item-details1'>
                     <div className='carousel-item-name'>{item.name}</div>
                     <div className='carousel-item-artist'>by  {item.artist}</div>

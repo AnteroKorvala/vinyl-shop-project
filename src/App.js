@@ -9,28 +9,47 @@ import {
 } from 'react-router-dom'
 import theme from './components/Theme'
 import Feed from './components/Feed'
+import Record from './components/Record'
 import Profile from './components/Profile'
+import Login from './components/Login'
+import Signup from './components/Signup'
 
 function App() {
-  const [userLoggedIn, setUserLoggedIn] = useState(true)
+  const [userLoggedIn, setUserLoggedIn] = useState(false)
 
   return (
     <ThemeProvider theme={theme}>
       <Router>
+        <Navbar isUserLoggedIn={userLoggedIn} />
         <Routes>
           <Route
             path='/'
             element={
-              <>
-                <Navbar isUserLoggedIn={userLoggedIn} />
-                <Feed />
-              </>
+              <Feed />
+            }
+          />
+          <Route
+            path='record/:id'
+            element={
+              <Record  />
             }
           />
           <Route
             path='/profile' //when getting id, do /profile/ID
             element={
               <Profile /> // and <Profile id={id} />
+            }
+          />
+          <Route
+            path='/login'
+            element={
+              <Login />
+            }
+          />
+          <Route
+            path='/signup'
+            element={
+              <Signup />
             }
           />
         </Routes>
