@@ -71,11 +71,11 @@ userRecordsRoute.post('/login', urlencodedParser, async (req, res) => {
         //Check if user exists
         const user = await User.findOne({email});
         if (user && (await bcrypt.compare(password, user.password))) {
-            const admin = user.admin;
+            const admin = user.admin.toString().toLowerCase() === "true";
             //Create token
             //Save user token
             user.token = jwt.sign(
-                { user_id: user._id, email, admin: admin.toLowerCase() === "true" },
+                {user_id: user._id, email, admin: admin},
                 process.env.TOKEN_KEY,
                 {
                     expiresIn: "2h"
@@ -116,41 +116,44 @@ userRecordsRoute.delete('/deleteUser', adminAuth, urlencodedParser, async (req, 
         });
 });
 
-/*
 //UPDATE user
-userRecordsRoute.put('/updateUser', auth, urlencodedParser, async (req, res) => {
+userRecordsRoute.put('/updateUser', adminAuth, urlencodedParser, async (req, res) => {
     try {
-        //Get user input
-        const {username, email, password} = req.body;
-        const token = req?.headers["x-access-token"];
-
-        //Validate input
-        if (!(email && password && username && token)) {
-            res.status(400).send('All input is required');
+        const query = req.body;
+        if (!query) {
+            return res.status(400).send('Input required');
         }
 
-        //Encrypt user password
-        const encryptedPassword = await bcrypt.hash(password, 10);
-
-        const updatedUser = User.findOneAndReplace({token: token},
+        await User.findOneAndUpdate(query.token, {
+            username: query.username,
+            email: query.email,
+            password: query.password,
+        },
             {
-                username: username,
-                email: email.toLowerCase(),
-                password: encryptedPassword
-            });
-        const userId = User.findOne({email: email});
-        console.log(userId?._id)
-        updatedUser.token = await jwt.sign(
-                {user_id: userId._id, email},
+                new: true
+            }).then((result) => {
+            const newToken = jwt.sign(
+                {
+                    user_id: result._id, email: query.email, admin: result.admin
+                },
                 process.env.TOKEN_KEY,
-                {expiresIn: "2h"}
+                {
+                    expiresIn: "2h"
+                }
             );
-        res.status(200).send(updatedUser._id);
+            User.findOneAndUpdate(result, {
+                token: newToken
+            });
+            res.status(200).json({
+                username: result.username,
+                token: newToken
+            });
+        });
     } catch (err) {
-        res.status(400).send(`Something went wrong with the request UPDATE: ${err}`);
+        res.status(400).send(`Something went wrong in the database transaction ${err}`);
     }
 });
-
+/*
 userRecordsRoute.get('/getUser', auth, urlencodedParser, async (req, res) => {
     let query = {username: req?.body?.username, email: req?.body?.email};
     if (!query) res.status(400).send('Input required to know which user to GET');
