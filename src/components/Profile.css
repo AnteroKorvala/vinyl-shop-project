@@ -1,0 +1,36 @@
+.profile-container {
+    height: 100vh;
+    background-color: #ee5c61;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    margin: 3%;
+    padding: 2% 3% 1% 3%;
+    border-radius: 1rem;
+    background-color: white;
+}
+
+.form-profile {
+    display: flex;
+    flex-direction: column;
+    margin: 3%;
+    padding: 2% 3% 5% 3%;
+    border-radius: 1rem;
+    background-color: white;
+}
+
+.form-profile-icon:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
+.form-item {
+    margin: 1em 0em 0em 0em;
+}

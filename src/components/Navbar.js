@@ -16,7 +16,8 @@ import {
   InputAdornment
 } from "@mui/material"
 
-function Navbar() {
+function Navbar(props) {
+  const isUserLoggedIn = props.isUserLoggedIn
   return (
     <div className="navbar-container">
       <ThemeProvider theme={theme}>
@@ -70,17 +71,16 @@ function Navbar() {
                   </TextField>
                 </Box>
                 <Box sx={{mr: 10}}>
-                  <IconButton
+                  {isUserLoggedIn === true && <IconButton
                     sx={{mr: 1}}
                     onClick={console.log('implement wishlist action')}
                     color="inherit"
                     href="/wishlist"
                   >
                     <ListAltIcon sx={{ fontSize: "40px" }} />
-                  </IconButton>
+                  </IconButton>}
                   <IconButton
                     sx={{mr: 0}}
-                    onClick={console.log('implement profile action')}
                     color="inherit"
                     href="/profile"
                   >
