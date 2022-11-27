@@ -81,7 +81,8 @@ function Signup() {
         >
           Update
         </Button>
-        <Link to={'/login'}>Already have an account? Click here to login</Link>
+        <Link to='/login'>Already have an account? Click here to login</Link>
+        <Link to="/">Return to the front page</Link>
       </div>
     </div>
   )

@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom'
 import theme from './components/Theme'
 import Feed from './components/Feed'
+import Record from './components/Record'
 import Profile from './components/Profile'
 import Login from './components/Login'
 import Signup from './components/Signup'
@@ -19,14 +20,18 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
+        <Navbar isUserLoggedIn={userLoggedIn} />
         <Routes>
           <Route
             path='/'
             element={
-              <>
-                <Navbar isUserLoggedIn={userLoggedIn} />
-                <Feed />
-              </>
+              <Feed />
+            }
+          />
+          <Route
+            path='record/:id'
+            element={
+              <Record  />
             }
           />
           <Route

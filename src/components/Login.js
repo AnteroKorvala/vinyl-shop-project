@@ -7,15 +7,19 @@ function Login() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const navigate = useNavigate()
-  const [alertMessage, setAlertMessage] = ("")
+  const [alertMessage, setAlertMessage] = useState(null)
 
   const login = async (e) => {
-    navigate("/usermainpage", { replace: true })
+    // implement login
+    navigate("/", { replace: true })
   }
 
   const submitHandler = (e) => {
+    console.log('click')
     e.preventDefault()
-    login()
+    if(username === "") setAlertMessage("Choose a username")
+    else if(password === "") setAlertMessage("Choose a password")
+    else login()
   }
 
   return (
@@ -51,10 +55,11 @@ function Login() {
             <FormHelperText id="password-helper">Password must contain a number</FormHelperText>
           </FormControl>
         </div>
-        <Button variant='primary'>
+        <Button variant='contained' onClick={submitHandler}>
           Login
         </Button>
         <Link to="/signup">Don't have an account? Click here to sign up</Link>
+        <Link to="/">Return to the front page</Link>
       </div>
     </div>
   )
