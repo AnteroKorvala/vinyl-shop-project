@@ -15,12 +15,20 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 
 function App() {
+  const jwtStorage = localStorage.getItem("token")
   const [userLoggedIn, setUserLoggedIn] = useState(false)
+  const [userJWT, setUserJWT] = useState(jwtStorage)
 
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Navbar isUserLoggedIn={userLoggedIn} />
+        <Navbar
+          isUserLoggedIn={userJWT != null}
+          logout={() => {
+            setUserJWT(null)
+            localStorage.removeItem("token")
+          }}
+        />
         <Routes>
           <Route
             path='/'
@@ -29,7 +37,7 @@ function App() {
             }
           />
           <Route
-            path='record/:id'
+            path='/oneVinyl/:id'
             element={
               <Record  />
             }
@@ -43,7 +51,11 @@ function App() {
           <Route
             path='/login'
             element={
-              <Login />
+              <Login
+                login={(newJWT) => {
+                  setUserJWT(newJWT)
+                }}
+              />
             }
           />
           <Route

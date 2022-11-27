@@ -2,8 +2,9 @@ import { FormControl, FormHelperText, InputLabel, Input, Button, Alert } from '@
 import React, {useState} from 'react'
 import './Profile.css'
 import Axios from 'axios'
-import AccountCircleIcon from "@mui/icons-material/AccountCircle"
+import Constants from './Constants.json'
 import { Link, useNavigate } from "react-router-dom"
+import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 
 function Signup() {
   const [username, setUsername] = useState("")
@@ -11,16 +12,30 @@ function Signup() {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [image, setImage] = useState()
-  const [alertMessage, setAlertMessage] = ("")
+  const [alertMessage, setAlertMessage] = useState()
+  const navigate = useNavigate()
 
-  function AddUser({username, email, password}) {
-    console.log('update')
+  const addUser = async () => {
+    await Axios.post(Constants.API_ADDRESS + '/u/register', {
+      username: username,
+      email: email,
+      password: password,
+      admin: 'false'
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }).then((response) => {
+      if(response.status === 201) navigate('/login')
+    })
   }
 
   const submitHandler = (e) => {
     e.preventDefault()
     if(password !== confirmPassword) setAlertMessage("Passwords don't match")
-    else AddUser({username, email, password})
+    //else if(password.length >= 6) setAlertMessage("Password needs to be longer than 6 characters")
+    else addUser({username, email, password})
   }
 
   return (
@@ -79,7 +94,7 @@ function Signup() {
           type='submit'
           onClick={submitHandler}
         >
-          Update
+          Create User
         </Button>
         <Link to='/login'>Already have an account? Click here to login</Link>
         <Link to="/">Return to the front page</Link>

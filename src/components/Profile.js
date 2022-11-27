@@ -1,22 +1,38 @@
-import { FormControl, FormHelperText, InputLabel, Input, Button } from '@mui/material'
+import { FormControl, FormHelperText, InputLabel, Input, Button, Alert } from '@mui/material'
 import React, {useState} from 'react'
 import './Profile.css'
+import Axios from 'axios'
+import Constants from './Constants.json'
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 
 function Profile() {
-  const [username, setUsername] = useState("Haxeli")
-  const [email, setEmail] = useState("haxeli@gmail.com")
+  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
+  const [alertMessage, setAlertMessage] = useState()
   const [image, setImage] = useState()
 
-  function UpdateProfile({username, email, password}) {
-    console.log('update')
+  const updateProfile = async ({username, email, password}) => {
+    await Axios.put(Constants.API_ADDRESS + '/u/updateUser', {
+      username: username,
+      email: email,
+      password: password
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }).then((response) => {
+      console.log(response.status)
+      alertMessage('Nice')
+    })
   }
 
   const submitHandler = (e) => {
     e.preventDefault()
-    UpdateProfile({username, email, password})
+    if(password !== confirmPassword) setAlertMessage("Passwords don't match")
+    updateProfile({username, email, password})
   }
 
   return (
@@ -34,7 +50,7 @@ function Profile() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <FormHelperText id="username-helper">Don't choose a dumb name</FormHelperText>
+          <FormHelperText id="username-helper">Edit your username</FormHelperText>
         </FormControl>
         <FormControl className='form-item'>
           <InputLabel htmlFor='email'></InputLabel>
@@ -45,7 +61,7 @@ function Profile() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <FormHelperText id="email-helper">Did you create that email when you were 12?</FormHelperText>
+          <FormHelperText id="email-helper">Edit your email</FormHelperText>
         </FormControl>
         <FormControl className='form-item'>
           <InputLabel htmlFor='password'></InputLabel>
@@ -56,7 +72,7 @@ function Profile() {
             aria-describedby="password-helper"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <FormHelperText id="password-helper">We'll always share your password</FormHelperText>
+          <FormHelperText id="password-helper">Choose a new password</FormHelperText>
         </FormControl>
         <FormControl className='form-item'>
           <InputLabel htmlFor='password'></InputLabel>
@@ -67,7 +83,7 @@ function Profile() {
             aria-describedby="password-helper"
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <FormHelperText id="password-helper">We'll always share your password</FormHelperText>
+          <FormHelperText id="password-helper">Confirm your password</FormHelperText>
         </FormControl>
         <Button
           variant='primary'
@@ -76,6 +92,7 @@ function Profile() {
         >
           Update
         </Button>
+        {alertMessage && <Alert variant='filled' severity="error" sx={{width: '100%', }} >{alertMessage}</Alert>}
       </div>
     </div>
   )

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
+import Axios from 'axios'
+import Constants from './Constants.json'
 import './Feed.css'
 import images from './Images.js'
 import Vinyl from './Vinyl'
@@ -13,7 +15,7 @@ function Feed() {
   const [isOpen, setIsOpen] = useState(true)
   const togglePopup = () => setIsOpen(!isOpen)
 
-  const getData = () => {
+  const getLocalData = () => {
     fetch('./data.json',
       {
         headers: {
@@ -29,8 +31,18 @@ function Feed() {
       })
   }
 
+  const getVinylData = async () => {
+    Axios.get(Constants.API_ADDRESS + '/').then(
+      (response) => {
+        console.log(response)
+        //setRecord(response.data)
+      }
+    )
+  }
+
   useEffect(() => {
-    getData()
+    getLocalData()
+    getVinylData()
   }, [])
 
   function ChooseImage(id) {
