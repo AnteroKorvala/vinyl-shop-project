@@ -6,6 +6,9 @@ import Vinyl from '../models/vinyl.js';
 import Upload from '../services/middleware/upload.js';
 import adminAuth from "../services/middleware/adminAuth.js";
 
+const urlencodedParser = bodyParser.urlencoded({extended: false});
+const jsonParser = bodyParser.json();
+
 const recordRoutes = express.Router();
 
 //let gfs;
@@ -16,9 +19,6 @@ conn.once("open", () => {
         bucketName: "uploads"
     });
 });*/
-
-const urlencodedParser = bodyParser.urlencoded({extended: false});
-const jsonParser = bodyParser.json();
 
 //Main page FEED / GET one ALL vinyl
 recordRoutes.get('/', async (req, res) => {
@@ -58,7 +58,8 @@ recordRoutes.get('/', async (req, res) => {
 
 //GET one vinyl
 recordRoutes.get('/oneVinyl', jsonParser, async (req, res) => {
-    let query = req?.body?._id;
+    const query = req.body._id;
+    console.log(query);
     await Vinyl.findOne({ _id: query })
         .then((result) => {
             delete result.__v;
@@ -98,6 +99,7 @@ recordRoutes.post('/addVinyl', adminAuth, Upload.single("cover"), jsonParser, (r
 
 //UPDATE a vinyl record
 recordRoutes.put('/updateVinyl', adminAuth, jsonParser, (req, res) => {
+    console.log(req.body)
     if (Object.keys(req.body).length === 0 &&
         Object.keys(req.params).length === 0) {
         res.status(400).send('Body or params needed');

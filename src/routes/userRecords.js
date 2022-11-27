@@ -69,7 +69,6 @@ userRecordsRoute.post('/register', jsonParser, async (req, res) => {
 userRecordsRoute.post('/login', jsonParser, async (req, res) => {
     try {
         const {email, password} = req.body;
-
         //Validate user input
         if (!(email && password)) {
             res.status(400).send('All input is required');
@@ -114,7 +113,7 @@ userRecordsRoute.delete('/deleteUser', adminAuth, jsonParser, async (req, res) =
                 res.status(200)
                     .send(`Provided user does not exist`);
             } else {
-                await wishlist.deleteOne(query.email)
+                await wishlist.deleteOne({ email: query.email })
                     .then((result) => {
                         if (result.deletedCount === 0) {
                             res.status(500).send('No wishlist for deleted user');
@@ -139,12 +138,12 @@ userRecordsRoute.put('/updateUser', userAuth, jsonParser, async (req, res) => {
         }
 
         //Encrypt user password
-        const encryptedPassword = bcrypt.hash(query.password, 10);
-
+        const encryptedPassword = await bcrypt.hash(query.password, 10);
+        console.log(encryptedPassword)
         await User.findOneAndUpdate(query.token, {
             username: query.username,
             email: query.email,
-            password: encryptedPassword,
+            password: encryptedPassword
         },
             {
                 new: true
@@ -170,8 +169,9 @@ userRecordsRoute.put('/updateUser', userAuth, jsonParser, async (req, res) => {
         res.status(400).send(`Something went wrong in the database transaction ${err}`);
     }
 });
-/*
-userRecordsRoute.get('/getUser', auth, urlencodedParser, async (req, res) => {
+
+//GET one user
+userRecordsRoute.get('/getUser', auth, jsonParser, async (req, res) => {
     let query = {username: req?.body?.username, email: req?.body?.email};
     if (!query) res.status(400).send('Input required to know which user to GET');
 
@@ -188,6 +188,5 @@ userRecordsRoute.get('/getUser', auth, urlencodedParser, async (req, res) => {
         res.status(400).send(`Something went wrong during the DB operation: ${error}`);
     });
 });
-*/
 
 export default userRecordsRoute;
