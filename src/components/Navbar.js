@@ -5,6 +5,7 @@ import ListAltIcon from "@mui/icons-material/ListAlt"
 import SearchIcon from '@mui/icons-material/Search'
 import { ThemeProvider } from '@mui/system'
 import theme from './Theme'
+import { Link } from "react-router-dom"
 import {
   AppBar,
   Container,
@@ -18,6 +19,7 @@ import {
 
 function Navbar(props) {
   const isUserLoggedIn = props.isUserLoggedIn
+  console.log('Navbar: ' + props.isUserLoggedIn + isUserLoggedIn)
   return (
     <div className="navbar-container">
       <ThemeProvider theme={theme}>
@@ -86,6 +88,16 @@ function Navbar(props) {
                   >
                     <AccountCircleIcon sx={{ fontSize: "40px" }} />
                   </IconButton>
+                  {props.isUserLoggedIn ? (
+                    <>
+                      <Link to="/"  onClick={props.logout}> Log Out </Link>
+                    </>
+                    )
+                    :
+                    (
+                    null
+                    )
+                  }
                 </Box>
               </Toolbar>
             </Container>

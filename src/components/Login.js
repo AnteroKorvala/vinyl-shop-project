@@ -1,25 +1,44 @@
 import React, {useState} from 'react'
 import { Link, useNavigate } from "react-router-dom"
 import { FormControl, FormHelperText, InputLabel, Input, Button, Alert } from '@mui/material'
+import Axios from 'axios'
+import Constants from './Constants.json'
 
 
-function Login() {
-  const [username, setUsername] = useState("")
+function Login(props) {
+  const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const navigate = useNavigate()
   const [alertMessage, setAlertMessage] = useState(null)
 
   const login = async (e) => {
-    // implement login
-    navigate("/", { replace: true })
+    e.preventDefault()
+    await Axios.post(Constants.API_ADDRESS + "/u/login", {
+      email: email,
+      password: password,
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((response) => {
+      console.log(response)
+      if(response.status === 400) setAlertMessage('Invalid credentials')
+      else {
+        localStorage.setItem("token", response.data.token)
+        const receivedJWT = response.data.token
+        props.login(receivedJWT)
+        navigate('/', { replace: true })
+      }
+    })
   }
 
   const submitHandler = (e) => {
     console.log('click')
     e.preventDefault()
-    if(username === "") setAlertMessage("Choose a username")
+    if(email === "") setAlertMessage("Choose a email")
     else if(password === "") setAlertMessage("Choose a password")
-    else login()
+    else login(e)
   }
 
   return (
@@ -31,15 +50,15 @@ function Login() {
         {alertMessage && <Alert variant='filled' severity="error" sx={{width: '100%', }} >{alertMessage}</Alert>}
         <div className='form-item'>
           <FormControl>
-            <InputLabel htmlFor='username'>Username</InputLabel>
+            <InputLabel htmlFor='email'>Username</InputLabel>
             <Input
-              id="username"
-              type='username'
+              id="email"
+              type='email'
               aria-describedby="username-helper"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-            <FormHelperText id="username-helper"></FormHelperText>
+            <FormHelperText id="email-helper"></FormHelperText>
           </FormControl>
         </div>
         <div className='form-item'>
@@ -52,7 +71,7 @@ function Login() {
               aria-describedby="password-helper"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <FormHelperText id="password-helper">Password must contain a number</FormHelperText>
+            <FormHelperText id="password-helper"></FormHelperText>
           </FormControl>
         </div>
         <Button variant='contained' onClick={submitHandler}>
