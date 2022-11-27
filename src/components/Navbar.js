@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import AlbumIcon from "@mui/icons-material/Album"
 import ListAltIcon from "@mui/icons-material/ListAlt"
@@ -16,10 +16,29 @@ import {
   TextField,
   InputAdornment
 } from "@mui/material"
+import Axios from 'axios'
+import Constants from './Constants.json'
 
 function Navbar(props) {
+  const [searchTerm, setSearchTerm] = useState("")
+  const [resultShow, setResultShow] = useState()
   const isUserLoggedIn = props.isUserLoggedIn
-  console.log('Navbar: ' + props.isUserLoggedIn + isUserLoggedIn)
+  
+  useEffect(() => {
+    Axios.get(Constants.API_ADDRESS + '/').then(
+      (response) => {
+        const vinylArray = response.data
+        const resultArray = vinylArray.map((item) => ({
+          vinylID: item._id,
+          artist: item.artist,
+          name: item.name,
+          genre: item.genre
+        }))
+        setResultShow(resultArray)
+      }
+    )
+  }, [])
+
   return (
     <div className="navbar-container">
       <ThemeProvider theme={theme}>
@@ -58,19 +77,28 @@ function Navbar(props) {
                   AUDIOPIUM
                 </Typography>
                 <Box sx={{mr: 10}}>
-                  <TextField
-                    id="search-input"
-                    label="Search..."
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <SearchIcon />
-                        </InputAdornment>
-                      )
-                    }}
-                  >
-                    IMPLEMENT ME!!!!!!!!!!!!!!!!
-                  </TextField>
+                  <div className="searchfield">
+                    <TextField
+                      id="search-input"
+                      label="Search..."
+                      type="text"
+                      onChange={(e) => {
+                        setSearchTerm(e.target.value)
+                      }}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <SearchIcon />
+                          </InputAdornment>
+                        )
+                      }}
+                    >
+                      IMPLEMENT ME!!!!!!!!!!!!!!!!
+                    </TextField>
+                    {resultShow && <div className="search-results">
+                      resultShow.filter
+                    </div>}
+                  </div>
                 </Box>
                 <Box sx={{mr: 10}}>
                   {isUserLoggedIn === true && <IconButton
