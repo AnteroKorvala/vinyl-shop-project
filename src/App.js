@@ -10,9 +10,11 @@ import {
 import theme from './components/Theme'
 import Feed from './components/Feed'
 import Profile from './components/Profile'
+import Login from './components/Login'
+import Signup from './components/Signup'
 
 function App() {
-  const [userLoggedIn, setUserLoggedIn] = useState(true)
+  const [userLoggedIn, setUserLoggedIn] = useState(false)
 
   return (
     <ThemeProvider theme={theme}>
@@ -31,6 +33,18 @@ function App() {
             path='/profile' //when getting id, do /profile/ID
             element={
               <Profile /> // and <Profile id={id} />
+            }
+          />
+          <Route
+            path='/login'
+            element={
+              <Login />
+            }
+          />
+          <Route
+            path='/signup'
+            element={
+              <Signup />
             }
           />
         </Routes>
