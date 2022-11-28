@@ -16,7 +16,7 @@ import Signup from './components/Signup'
 
 function App() {
   const jwtStorage = localStorage.getItem("token")
-  const [userLoggedIn, setUserLoggedIn] = useState(false)
+  //const [userLoggedIn, setUserLoggedIn] = useState(false)
   const [userJWT, setUserJWT] = useState(jwtStorage)
 
   return (

@@ -5,7 +5,7 @@ import ListAltIcon from "@mui/icons-material/ListAlt"
 import SearchIcon from '@mui/icons-material/Search'
 import { ThemeProvider } from '@mui/system'
 import theme from './Theme'
-import { Link, Navigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import {
   AppBar,
   Container,
@@ -23,6 +23,7 @@ function Navbar(props) {
   const [searchTerm, setSearchTerm] = useState("")
   const [resultShow, setResultShow] = useState()
   const isUserLoggedIn = props.isUserLoggedIn
+  const navigate = useNavigate()
 
   useEffect(() => {
     console.log(searchTerm)
@@ -125,7 +126,7 @@ function Navbar(props) {
                               <div>{item.artist}</div>
                               <div>{item.genre}</div>
                               <button onClick={() => {
-                                  Navigate(`/oneVinyl/${item.vinylID}`)
+                                  navigate(`/oneVinyl/${item.vinylID}`)
                                 }}>
                               </button>
                             </div>
